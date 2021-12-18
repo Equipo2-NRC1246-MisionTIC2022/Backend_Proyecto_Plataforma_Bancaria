@@ -2,6 +2,7 @@ const express = require('express')
 
 const Usuario = require('../models/Usuario')
 const Solicitud = require('../models/Solicitud')
+const { findById } = require('../models/Usuario')
 
 const rutas = express.Router()
 
@@ -12,15 +13,18 @@ rutas.post('/crear_solicitud', async (req, res) => {
     res.json({mensaje: "Solicitud creada correctamente"})
 })
 
-rutas.get('/get_solicitud', async (req, res) => {
-    res.json(await solicitud())
+
+
+rutas.get('/get_solicitud/:id_solicitud', async (req, res) => {
+    const id_solicitud = req.params.id_solicitud
+
+    const solicitud = await Solicitud.findOne({id_user:id_solicitud})
+    if (!solicitud){
+        res.json({mensaje: "La solicitud buscada no existe"})
+    }else{
+        res.json(solicitud)
+    }
 })
-
-
-const solicitud = async () => {
-    const solicitud = await Solicitud.find()
-    return solicitud
-}
 
 
 module.exports = rutas
