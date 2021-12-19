@@ -2,6 +2,7 @@ const express = require('express')
 
 const Usuario = require('../models/Usuario')
 const Solicitud = require('../models/Solicitud')
+const Contacto = require('../models/Contacto')
 const { findById } = require('../models/Usuario')
 
 const rutas = express.Router()
@@ -13,8 +14,6 @@ rutas.post('/crear_solicitud', async (req, res) => {
     res.json({mensaje: "Solicitud creada correctamente"})
 })
 
-
-
 rutas.get('/get_solicitud/:id_solicitud', async (req, res) => {
     const id_solicitud = req.params.id_solicitud
 
@@ -24,6 +23,13 @@ rutas.get('/get_solicitud/:id_solicitud', async (req, res) => {
     }else{
         res.json(solicitud)
     }
+})
+
+rutas.post('/contacto_cliente', async (req, res) => {
+    let contacto = new Contacto(req.body)
+    await contacto.save()
+
+    res.json({mensaje: "Mensaje enviado correctamente"})
 })
 
 
