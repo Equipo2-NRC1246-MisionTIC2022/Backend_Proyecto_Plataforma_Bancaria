@@ -3,7 +3,7 @@ const mongoose = require('../db/Basedatos')
 const Schema = mongoose.Schema
 
 const SolicitudSchema = new Schema({
-    codigo: Number,
+    codigo: String,
     id_user:Number,
     valor: Number,
     cuotas: Number,
