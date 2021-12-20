@@ -32,5 +32,21 @@ rutas.post('/contacto_cliente', async (req, res) => {
     res.json({mensaje: "Mensaje enviado correctamente"})
 })
 
+rutas.put('/actualizar_usuario/:id_usuario', async (req, res) => {
+    const id_usuario = req.params.id_usuario
+
+    const usuario = await Usuario.findOne({id:id_usuario})
+
+    usuario.nombre = req.body.nombre
+    usuario.nacimiento = req.body.nacimiento
+    usuario.ingresos = req.body.ingresos
+    usuario.egresos = req.body.egresos
+
+    await usuario.save()
+
+    res.json({mensaje: "Usuario actualizado correctamente"})
+
+})
+
 
 module.exports = rutas
