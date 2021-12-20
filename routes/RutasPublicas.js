@@ -87,7 +87,7 @@ rutas.post('/verificar', async (req, res) => {
 
 })
 
-rutas.put('/actualizar_contraseña/:id_usuario', async (req, res) => {
+rutas.put('/actualizar_contrasena/:id_usuario', async (req, res) => {
     const id_usuario = req.params.id_usuario
 
     const usuario = await Usuario.findOne({id:id_usuario})
