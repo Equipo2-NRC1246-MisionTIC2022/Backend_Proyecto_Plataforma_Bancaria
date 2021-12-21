@@ -3,6 +3,7 @@ const express = require('express')
 const Usuario = require('../models/Usuario')
 const Solicitud = require('../models/Solicitud')
 const Contacto = require('../models/Contacto')
+const Pagos = require('../models/Pagos')
 const { findById } = require('../models/Usuario')
 
 const rutas = express.Router()
@@ -62,6 +63,29 @@ rutas.put('/actualizar_solicitud/:id_solicitud', async (req, res) => {
     res.json({mensaje: "Prorroga solicitada correctamente. La solicitud sera revisada. Consulte en 5 dias habiles con el codigo del crédito."})
 
 })
+
+rutas.post('/crear_pago', async (req, res) => {
+    let pago = new Pagos(req.body)
+    await pago.save()
+
+    res.json({mensaje: "Pago registrado correctamente. A continuación se generará la referencia de pago."})
+})
+
+rutas.put('/actualizar_cuota/:id_solicitud', async (req, res) => {
+    const id_solicitud = req.params.id_solicitud
+
+    const solicitud = await Solicitud.findOne({codigo:id_solicitud})
+
+    solicitud.cuotas_pendientes = req.body.cuotas_pendientes
+    solicitud.cuotas_pagadas = req.body.cuotas_pagadas
+    solicitud.valor = req.body.valor
+
+    await solicitud.save()
+
+    res.json({mensaje: "Estado de crédito actualizado correctamente."})
+
+})
+
 
 
 module.exports = rutas
