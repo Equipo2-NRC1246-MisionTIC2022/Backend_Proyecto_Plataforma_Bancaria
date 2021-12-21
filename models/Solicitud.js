@@ -11,12 +11,12 @@ const SolicitudSchema = new Schema({
     prorroga: Boolean,
     razon_prorroga: String,
     cuotas_prorroga: Number,
-    estado_prorroga: String,
+    estado_prorroga: Number,
     cuotas_pagadas: Number,
     cuotas_pendientes: Number,
     cuota_capital: Number,
     interes: Number,
-    estado_solicitud: String,
+    estado_solicitud: Number,
 })
 
 const Solicitud = mongoose.model('solicitudes', SolicitudSchema)
