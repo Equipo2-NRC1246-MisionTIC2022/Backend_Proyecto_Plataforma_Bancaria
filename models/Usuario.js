@@ -9,7 +9,8 @@ const UsuarioSchema = new Schema({
     expedicion: String,
     ingresos: Number,
     egresos: Number,
-    pass: String
+    pass: String,
+    rol:Number
 })
 
 const Usuario = mongoose.model('usuarios', UsuarioSchema)
